@@ -1,0 +1,75 @@
+﻿<Window x:Class="DataArt_test_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataArt_test_2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="Task" Grid.ColumnSpan="2" TextWrapping="Wrap" TextAlignment="Justify" Text="1) Введите исходные данные для поиска необходимого количества максимальных элементов из массива"/>
+            <TextBlock x:Name="SizeArray" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" Text="Размер массива чисел" />
+            <TextBlock x:Name="EnterArray" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Center" Grid.Row="2" Text="Введите массив" />
+            <TextBlock x:Name="CountFindNumber" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Center" Grid.Row="3" Text="Количество искомых чисел" />
+
+            <TextBox x:Name="SizeArrayTextBox"  Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" />
+            <TextBox x:Name="EnterArrayTextBox" Grid.Column="1" VerticalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" Grid.Row="2" />
+            <TextBox x:Name="CountFindNumberTextBox" Grid.Column="1" VerticalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" Grid.Row="3" />
+
+            <Button x:Name="CalculateFromTextBox" Grid.Row="4" Grid.ColumnSpan="2" Content="Рассчитать" Click="CalculateFromTextBox_Click"></Button>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TaskWithFile" Grid.ColumnSpan="2" TextWrapping="Wrap" TextAlignment="Justify" Text="2) Введите исходные данные для поиска необходимого количества максимальных элементов из массива"/>
+            <Button x:Name="ChouseInputFile" Grid.Column="0"  Grid.Row="1" Content="Путь к файлу для чтения" Click="ChouseInputFile_Click" />
+            <Button x:Name="ChouseOutputFile"  Grid.Column="0"  Grid.Row="2" Content="Путь к файлу для записи" Click="ChouseOutputFile_Click" />
+
+            <TextBox x:Name="ChouseInputFileTextBox"  Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" />
+            <TextBox x:Name="ChouseOutputFileTextBox" Grid.Column="1" VerticalAlignment="Center"  TextWrapping="Wrap" TextAlignment="Center" Grid.Row="2" />
+
+            <Button x:Name="CalculateFromFile" Grid.Row="4" Grid.ColumnSpan="2" Content="Рассчитать" Click="CalculateFromFile_Click"></Button>
+
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="CalculateArrayTitle" Grid.ColumnSpan="2" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Justify" Text="Ответ"/>
+            <TextBlock x:Name="CalculateArray" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Justify"/>
+
+        </Grid>
+    </Grid>
+</Window>
