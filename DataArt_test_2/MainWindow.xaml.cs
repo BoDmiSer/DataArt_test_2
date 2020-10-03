@@ -31,7 +31,6 @@ namespace DataArt_test_2
     {
         #region Fields
         private List<int> UseArray;
-        private List<int> OutputArray;
         private bool check;
         #endregion
 
@@ -40,7 +39,6 @@ namespace DataArt_test_2
         {
             check = false;
             UseArray = new List<int>();
-            OutputArray = new List<int>();
             InitializeComponent();
         }
         #endregion
@@ -54,18 +52,36 @@ namespace DataArt_test_2
         private void PrepareCalculate()
         {
             check = false;
-            string[] arrayInt;
+            int[] arrayInt;
+            int count = Convert.ToInt32(CountFindNumberTextBox.Text); 
             UseArray.Clear();
             CalculateArray.Text = "";
             if (EnterArrayTextBox.Text.Length != 0)
             {
-                arrayInt = EnterArrayTextBox.Text.Split(' ');
+                arrayInt = EnterArrayTextBox.Text.Split(' ').Take(Convert.ToInt32(SizeArrayTextBox.Text)).Select(x => int.Parse(x)).ToArray();
                 try
                 {
-                    foreach (string item in arrayInt.Take(Convert.ToInt32(SizeArrayTextBox.Text)))
+                    SortedSet<ValueIndexPair> sorted = new SortedSet<ValueIndexPair>(new ValueIndexCompare());
+                    for (int i = 0; i < arrayInt.Length; i++)
                     {
-                        UseArray.Add(Convert.ToInt32(item));
-                    };
+                        var pair = new ValueIndexPair(arrayInt[i], i);
+                        if (sorted.Count < count)
+                        {
+                            sorted.Add(pair);
+                        }
+                        else
+                        {
+                            if (sorted.Max.Value < arrayInt[i])
+                            {
+                                sorted.Remove(sorted.Max);
+                                sorted.Add(pair);
+                            }
+                        }
+                    }
+                    foreach (var item in sorted)
+                    {
+                        CalculateArray.Text = CalculateArray.Text + " " + item.Value;
+                    };                   
                 }
                 catch (Exception eEnterArrayTextBox)
                 {
@@ -75,30 +91,27 @@ namespace DataArt_test_2
                         check = true;
                     }
                 }
-                UseArray.Sort();
             }
         }
-        private void Calculate()
+        class ValueIndexCompare : IComparer<ValueIndexPair>
         {
-            if (SizeArrayTextBox.Text.Length != 0)
+            public int Compare(ValueIndexPair x, ValueIndexPair y)
             {
-                try
-                {
-                    foreach (var item in CalculateMaxInArray(UseArray, Convert.ToInt32(CountFindNumberTextBox.Text)))
-                    {
-                        CalculateArray.Text = CalculateArray.Text + " " + item;
-                    };
-                }
-                catch (Exception eSizeArrayTextBox)
-                {
-                    MessageBoxResult message = MessageBox.Show(eSizeArrayTextBox.Message, "Error", MessageBoxButton.OK);
-                    if (message == MessageBoxResult.OK)
-                    {
-                        check = true;
-                    }
-                }
+                if (x.Value != y.Value) return -x.Value.CompareTo(y.Value);
+                return x.Index.CompareTo(y.Index);
             }
+        }
 
+        struct ValueIndexPair
+        {
+            public readonly int Value;
+            public readonly int Index;
+
+            public ValueIndexPair(int value, int index)
+            {
+                Value = value;
+                Index = index;
+            }
         }
         private void ReadFromTxt()
         {
@@ -181,24 +194,17 @@ namespace DataArt_test_2
             }
 
         }
-
-        private IEnumerable<int> CalculateMaxInArray(IEnumerable<int> enterArray, int count)
-        {
-            return enterArray.Skip(enterArray.Count() - count).Take(count).Reverse();
-        }
         #endregion
 
         #region Events
         private void CalculateFromTextBox_Click(object sender, RoutedEventArgs e)
         {
             PrepareCalculate();
-            Calculate();
         }
 
         private void CalculateFromFile_Click(object sender, RoutedEventArgs e)
         {
             PrepareCalculate();
-            Calculate();
             SaveToFileTxt();
 
         }
